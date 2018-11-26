@@ -54,3 +54,13 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/**
+ * Load feather icons https://feathericons.com
+ */
+window.feather = require('feather-icons');
+
+/**
+ * Load holderjs which allows us to use image placeholders
+ */
+require('holderjs');
