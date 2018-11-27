@@ -39,7 +39,7 @@ class ProductController extends Controller
     {
         // Assign product to authenticated user and save
         auth()->user()->products()->create($request->all());
-        return response()->redirectToRoute('admin.product.index');
+        return response()->redirectToRoute('admin.dashboard.index')->with(['success' => 'Product created successfully.']);
     }
 
     /**

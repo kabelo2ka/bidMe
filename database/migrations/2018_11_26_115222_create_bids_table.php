@@ -16,10 +16,12 @@ class CreateBidsTable extends Migration
         Schema::create('bids', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('user_id');
+            /*$table->unsignedInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')->on('users')
-                ->onDelete('cascade');
+                ->onDelete('cascade');*/
+
+            $table->string('email');
 
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')

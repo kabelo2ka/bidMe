@@ -23,18 +23,17 @@
                             {{--<img class="card-img-top"
                                  data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
                                  alt="Card image cap">--}}
-                            <img class="card-img-top"
-                                 src="{{ $product->image_url }}"
-                                 alt="{{ $product->name }}">
+                            <a href="{{ route('product.show', ['id'=>$product->id]) }}">
+                                <img class="card-img-top"
+                                     src="{{ $product->image_url }}"
+                                     alt="{{ $product->name }}">
+                            </a>
                             <div class="card-body">
                                 <h2 class="card-title">{{ $product->name }}</h2>
                                 <p class="card-text">{{ str_limit($product->description, 20) }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="{{ route('product.show', ['id'=>$product->id]) }}"
-                                           class="btn btn-sm btn-outline-secondary">View</a>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
+                                    <a href="{{ route('product.show', ['id'=>$product->id]) }}"
+                                       class="btn btn-sm btn-outline-secondary">More info</a>
                                     <small class="text-muted">9 mins</small>
                                 </div>
                             </div>

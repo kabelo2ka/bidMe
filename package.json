@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "feather-icons": "^4.9.0",
-        "holderjs": "^2.9.6"
+        "holderjs": "^2.9.6",
+        "inputmask": "^4.0.3"
     }
 }

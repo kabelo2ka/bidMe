@@ -64,3 +64,8 @@ window.feather = require('feather-icons');
  * Load holderjs which allows us to use image placeholders
  */
 require('holderjs');
+
+/**
+ * Load Inputmask plugin
+ */
+window.inputmask = require('inputmask');

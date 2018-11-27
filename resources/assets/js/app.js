@@ -22,3 +22,5 @@ const app = new Vue({
 });
 
 feather.replace();
+
+inputmask().mask(document.querySelectorAll("input"));

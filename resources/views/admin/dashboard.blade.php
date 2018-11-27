@@ -22,14 +22,22 @@
             </div>
         </div>
     </div>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th width="10px">#</th>
                 <th>Name</th>
-                <th>Bid(s)</th>
+                <th>Views</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -40,8 +48,9 @@
                         <img src="{{ $product->image_url }}" width="48px" alt="">
                         <strong>{{ $product->name }}</strong>
                     </td>
-                    <td>{{ $product->bids->count() }}</td>
+                    <td>{{ $product->views }}</td>
                     <td>{{ $product->active ? 'Active' :  'Not Active' }}</td>
+                    <td><a href="#" class="btn btn-sm btn-outline-primary">Edit</a></td>
                 </tr>
             @endforeach
             </tbody>

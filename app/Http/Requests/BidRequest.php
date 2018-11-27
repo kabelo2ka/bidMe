@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class BidRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,8 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user();
+        cookie()->queue('bidder_email', $this->email, 60*24*7); // Save email to cookie for 7 days
+        return true;
     }
 
     /**
@@ -24,11 +25,15 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'sku' => 'required|unique:products|max:20',
+            'email' => 'unique:bids,email,NULL,id,product_id,' . $this->product_id,
             'price' => 'required',
-            'description' => 'required',
-//            'active' => 'required|boolean',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.unique' => 'You have already placed a bid on this product.'
         ];
     }
 }

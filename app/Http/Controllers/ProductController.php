@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProductViewed;
 use App\Product;
 
 class ProductController extends Controller
@@ -14,6 +15,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        event(new ProductViewed($product));
         return view('product.show', compact('product'));
     }
 }

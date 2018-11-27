@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Bid;
+use App\Http\Requests\BidRequest;
+use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class BidController extends Controller
 {
@@ -30,18 +33,28 @@ class BidController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param BidRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BidRequest $request)
     {
-        //
+        $email = $request->email;
+        // $product = Product::where($request->product_id);
+        $bid = new Bid();
+        $bid->forceFill([
+            'email' => $email,
+            'product_id' => $request->product_id
+        ])->save();
+
+        //dd($bid);
+
+        return redirect()->back()->with(['success' => 'Bid placed successfully']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bid  $bid
+     * @param  \App\Bid $bid
      * @return \Illuminate\Http\Response
      */
     public function show(Bid $bid)
@@ -52,7 +65,7 @@ class BidController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bid  $bid
+     * @param  \App\Bid $bid
      * @return \Illuminate\Http\Response
      */
     public function edit(Bid $bid)
@@ -63,8 +76,8 @@ class BidController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bid  $bid
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Bid $bid
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Bid $bid)
@@ -75,7 +88,7 @@ class BidController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bid  $bid
+     * @param  \App\Bid $bid
      * @return \Illuminate\Http\Response
      */
     public function destroy(Bid $bid)
