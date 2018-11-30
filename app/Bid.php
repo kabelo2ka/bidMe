@@ -16,4 +16,9 @@ class Bid extends Model
     {
         $this->attributes['amount'] = floatval(preg_replace('/[^\d\.]/', '', $value));
     }
+
+    public function getAmountAttribute($value)
+    {
+        return number_format((float)$value, 2);
+    }
 }

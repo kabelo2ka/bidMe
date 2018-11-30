@@ -23,11 +23,14 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
+        // Update vs Create 'unique field' fix
+        $unique_sku = request()->product ? 'unique:products,sku,' . request()->product->id : 'unique:products';
         return [
             'name' => 'required|max:255',
-            'sku' => 'required|unique:products|max:20',
+            'sku' => 'required|max:20|' . $unique_sku,
             'price' => 'required',
             'description' => 'required',
+//            'image_url' => 'image',
 //            'active' => 'required|boolean',
         ];
     }

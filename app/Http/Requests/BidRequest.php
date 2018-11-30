@@ -26,7 +26,7 @@ class BidRequest extends FormRequest
     {
         return [
             'email' => 'unique:bids,email,NULL,id,product_id,' . $this->product_id,
-            'price' => 'required',
+            'amount' => 'required',
         ];
     }
 

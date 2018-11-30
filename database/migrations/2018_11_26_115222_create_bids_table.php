@@ -28,7 +28,7 @@ class CreateBidsTable extends Migration
                 ->references('id')->on('products')
                 ->onDelete('cascade');
 
-            $table->float('amount')->default(0);
+            $table->float('amount', 20)->default(0);
 
             $table->timestamps();
         });

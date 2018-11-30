@@ -43,10 +43,9 @@ class BidController extends Controller
         $bid = new Bid();
         $bid->forceFill([
             'email' => $email,
-            'product_id' => $request->product_id
+            'product_id' => $request->product_id,
+            'amount' => $request->amount
         ])->save();
-
-        //dd($bid);
 
         return redirect()->back()->with(['success' => 'Bid placed successfully']);
     }

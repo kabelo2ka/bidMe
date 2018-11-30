@@ -12,10 +12,11 @@
 */
 
 Route::get('/', function () {
-    $products = \App\Product::all();
+    $products = \App\Product::active()->paginate(9);
     return view('welcome', compact('products'));
 });
 
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');

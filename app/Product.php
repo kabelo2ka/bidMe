@@ -50,20 +50,24 @@ class Product extends Model
      *
      * @return void
      */
-    public function setImageUrlAttribute()
+    public function setImageUrlAttribute($value)
     {
-        $this->attributes['image_url'] = 'http://lorempixel.com/620/480/technics/Product%20Image%20Placeholder';
+        $this->attributes['image_url'] = 'http://lorempixel.com/620/480/technics/' . rand(0,10) . '/Product%20Image%20Placeholder';
     }
 
     /**
      * Set product active attribute to true (Temporary)
-     * @todo remove this
+     * @todo remove this & get this value from form
      *
+     * @param $value
      * @return void
      */
-    public function setActiveAttribute()
+    public function setActiveAttribute($value)
     {
-        $this->attributes['active'] = true;
+        if($value === 'active') {
+            $value = $value === 'active' ? true : false;
+        }
+        $this->attributes['active'] = $value;
     }
 
     /**
@@ -74,7 +78,7 @@ class Product extends Model
      */
     public function setPriceAttribute($value)
     {
-        $this->attributes['price'] = floatval(preg_replace('/[^\d\.]/', '', $value));
+        $this->attributes['price'] = floatval(preg_replace('/[^\d\.,]/', '', $value));
     }
 
     /**
@@ -93,10 +97,23 @@ class Product extends Model
      *
      * @return string
      */
-    public function getHighestBidAmount()
+    public function getLowestBidAmount()
     {
         if ($bid = $this->bids()->orderBy('amount')->first()) {
-            return round($bid->amount, 2);
+            return number_format((float)$bid->attributes['amount'], 2);
+        };
+        return '0.00';
+    }
+
+    /**
+     * Get Lowest bid amount
+     *
+     * @return string
+     */
+    public function getHighestBidAmount()
+    {
+        if ($bid = $this->bids()->orderBy('amount', 'desc')->first()) {
+            return number_format((float)$bid->attributes['amount'], 2);
         };
         return '0.00';
     }
@@ -109,7 +126,7 @@ class Product extends Model
     public function getAverageBidAmount()
     {
         if ((float)$avg_amount = $this->bids()->average('amount')) {
-            return round($avg_amount, 2);
+            return number_format((float)$avg_amount, 2);
         };
         return 0.00;
     }

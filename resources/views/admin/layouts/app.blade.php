@@ -25,14 +25,19 @@
 <body>
 <div id="app">
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a href="{{ url('/') }}" class="navbar-brand col-sm-3 col-md-2 mr-0">
+        <a href="{{ url('/admin') }}" class="navbar-brand col-sm-3 col-md-2 mr-0">
             <i data-feather="target"></i>
             <strong>{{ config('app.name', 'BidMe') }}</strong>
         </a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
+        {{--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--}}
+        <ul class="navbar-nav px-3 flex-md-row">
+            <li class="nav-item text-nowrap px-md-2"><a class="nav-link" href="{{ url('/') }}">Goto Frontend</a></li>
+            <li class="nav-item text-nowrap px-md-2">
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('form_logout').submit();">Sign out</a>
+                <form id="form_logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
         </ul>
     </nav>
@@ -42,7 +47,7 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 @include('admin.partials.sidebar')
             </nav>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-3">
                 @yield('content')
             </main>
 

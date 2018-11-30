@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
 
             $table->string('name');
 
-            $table->float('price');
+            $table->float('price', 20);
 
             $table->string('image_url');
 
