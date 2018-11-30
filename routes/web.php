@@ -12,9 +12,28 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $products = \App\Product::active()->paginate(9);
+    return view('welcome', compact('products'));
 });
 
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
+Route::get('product/{product}', 'ProductController@show')->name('product.show');
+
+Route::post('bid/store', 'BidController@store')->name('bid.store');
+
+Route::get('bid/not-me', function() {
+    cookie()->queue(cookie()->forget('bidder_email'));
+    return redirect()->back();
+})->name('bid.not-me');
+
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+
+    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+
+    Route::resource('product', 'Admin\ProductController');
+
+});
